@@ -1,6 +1,7 @@
 package Model;
 
-public class Treino {
+public class
+Treino {
     private Integer id;
     private String tipoDeTreino;
     private Integer quantidadeDeExercicios;
