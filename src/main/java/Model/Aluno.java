@@ -1,17 +1,19 @@
 package Model;
 
+import java.util.Date;
+
 public class Aluno {
 
     // Atributos
     private String nome;
-    private Integer dataNasc;
-    private Integer cpf;
+    private Date dataNasc;
+    private Long cpf;
     private String tipoDePlano;
     private Boolean pagamentoPlano;
     private Integer idTreino;
 
     // Construtores
-    public Aluno(String nome, Integer dataNasc, Integer cpf, String tipoDePlano, Boolean pagamentoPlano, Integer idTreino) {
+    public Aluno(String nome, Date dataNasc, Long cpf, String tipoDePlano, Boolean pagamentoPlano, Integer idTreino) {
         this.nome = nome;
         this.dataNasc = dataNasc;
         this.cpf = cpf;
@@ -30,11 +32,11 @@ public class Aluno {
         return nome;
     }
 
-    public Integer getDataNasc() {
+    public Date getDataNasc() {
         return dataNasc;
     }
 
-    public Integer getCpf() {
+    public Long getCpf() {
         return cpf;
     }
 
@@ -54,11 +56,11 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public void setDataNasc(Integer dataNasc) {
+    public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
 
