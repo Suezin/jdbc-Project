@@ -1,6 +1,6 @@
 CREATE TABLE clientstb (
                            id int auto_increment PRIMARY KEY,
-                            name VARCHAR(50) NOT NULL,
+                           name VARCHAR(50) NOT NULL,
                            dateofbirth date NOT NULL,
                            cpf VARCHAR(11) NOT NULL,
                            plain VARCHAR(20) NOT NULL,

@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Aluno;
+import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -39,6 +40,36 @@ public class ControllerUsusario {
             conn.closeConnection(statement, resultSet);
         }
         return alunoList;
+
+    }
+
+    public void alterUser(int id, String name){
+        String sql = "UPDATE clientstb " +
+                "SET name = ?" +
+                " WHERE id = ?";
+        ControllerConnection conn = new ControllerConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try{
+            statement = conn.preparedStatement(sql);
+            statement.setString(1, name);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        }catch(SQLException exSql) {
+            System.out.println("Erro de sql : " + exSql);
+        }finally {
+            conn.closeConnection(statement, resultSet);
+            List<Aluno> listAluno = new ArrayList<>();
+            for(Aluno aluno : listAluno){
+                System.out.println(aluno.getNome());
+                System.out.println(aluno.getCpf());
+                System.out.println(aluno.getDataNasc());
+                System.out.println(aluno.getTipoDePlano());
+                System.out.println(aluno.getPagamentoPlano());
+                listAluno.add(aluno);
+            }
+        }
+
 
     }
 }
