@@ -1,17 +1,17 @@
 package br.com.matheus;
 
-import Controller.ControllerConnection;
-import Controller.ControllerUsusario;
+import Controller.ControllerAluno;
 import Model.Aluno;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public class gerenciadorAcademia {
 
     public static void main(String[] args){
-        ControllerUsusario conn = new ControllerUsusario();
-        List<Aluno> alunoList = conn.getUser();
+        ControllerAluno conn = new ControllerAluno();
+        List<Aluno> alunoList = conn.getAluno();
         for(Aluno aluno : alunoList) {
             System.out.println(aluno.getNome());
             System.out.println(aluno.getCpf());
@@ -22,6 +22,15 @@ public class gerenciadorAcademia {
         }
 //        int id = 1;
 //        String name = "Leonardo";
-//         conn.alterUser(id,name);
+//         conn.alterAluno(id,name);
+
+//        String nome = "Alessandra";
+//        LocalDate dateofbirth = LocalDate.of(2008, 4, 10);
+//        String cpf = "12345678911";
+//        String plain = "Semestral";
+//        Boolean payment = true;
+//        int trainnigid = 1;
+//
+//        conn.insertAluno(nome, dateofbirth, cpf,plain,payment,trainnigid );
     }
 }

@@ -1,20 +1,16 @@
 package Controller;
 
 import Model.Aluno;
-import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
+import javax.xml.transform.Result;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-public class ControllerUsusario {
+public class ControllerAluno {
 
-    public List<Aluno> getUser(){
+    public List<Aluno> getAluno(){
         String sql = "SELECT * FROM clientstb;";
         ControllerConnection conn = new ControllerConnection();
         PreparedStatement statement = null;
@@ -43,7 +39,7 @@ public class ControllerUsusario {
 
     }
 
-    public void alterUser(int id, String name){
+    public void alterAluno(int id, String name){
         String sql = "UPDATE clientstb " +
                 "SET name = ?" +
                 " WHERE id = ?";
@@ -58,18 +54,34 @@ public class ControllerUsusario {
         }catch(SQLException exSql) {
             System.out.println("Erro de sql : " + exSql);
         }finally {
-            conn.closeConnection(statement, resultSet);
-            List<Aluno> listAluno = new ArrayList<>();
-            for(Aluno aluno : listAluno){
-                System.out.println(aluno.getNome());
-                System.out.println(aluno.getCpf());
-                System.out.println(aluno.getDataNasc());
-                System.out.println(aluno.getTipoDePlano());
-                System.out.println(aluno.getPagamentoPlano());
-                listAluno.add(aluno);
+            conn.closeConnection(statement);
             }
         }
 
 
+
+
+    public void insertAluno(String name, LocalDate dateofbirth, String cpf, String plain, Boolean payment, int idtrainnig){
+        String sql = "INSERT INTO clientstb(name,dateofbirth,cpf,plain,payment,idtrainnig) " +
+                "VALUES(?,?,?,?,?,?);";
+        ControllerConnection conn = new ControllerConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = conn.preparedStatement(sql);
+            statement.setString(1, name);
+            statement.setDate(2, Date.valueOf(dateofbirth));
+            statement.setString(3, cpf);
+            statement.setString(4, plain);
+            statement.setBoolean(5, payment);
+            statement.setInt(6, idtrainnig);
+            statement.executeUpdate();
+
+        }catch(SQLException exSql){
+            System.out.println("Erro de sql : " + exSql);
+        }finally{
+            conn.closeConnection(statement, resultSet);
+        }
     }
 }
+
