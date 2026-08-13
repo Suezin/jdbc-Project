@@ -17,9 +17,9 @@ public class ControllerAluno {
         ResultSet resultSet = null;
         List<Aluno> alunoList = new ArrayList<>();
         try {
-            statement = conn.preparedStatement(sql);
-            resultSet = statement.executeQuery();
-            while(resultSet.next()){
+            statement = conn.preparedStatement(sql); // Testa a query
+            resultSet = statement.executeQuery(); // Executa a query
+            while(resultSet.next()){ // Pega cada linha de resultado da query
                 Aluno aluno = new Aluno();
 
                 aluno.setNome(resultSet.getString("name"));
@@ -85,7 +85,36 @@ public class ControllerAluno {
     }
 
 
-    
+    public List<Aluno> getAlunoById(String name) {
+        String sql = "SELECT * FROM clientstb WHERE name LIKE ?";
+        ControllerConnection conn = new ControllerConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Aluno> alunoList = new ArrayList<>();
+        try {
+            statement = conn.preparedStatement(sql);
+            statement.setString(1, "%" + name + "%");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Aluno aluno = new Aluno();
+                aluno.setNome(resultSet.getString("name"));
+                aluno.setDataNasc(resultSet.getDate("dateofbirth"));
+                aluno.setCpf(resultSet.getLong("cpf"));
+                aluno.setTipoDePlano(resultSet.getString("plain"));
+                aluno.setPagamentoPlano(resultSet.getBoolean("payment"));
+                aluno.setIdTreino(resultSet.getInt("idtrainnig"));
+                alunoList.add(aluno);
+            }
+
+        } catch (SQLException exSql) {
+            System.out.println("Erro de sql : " + exSql);
+        }catch(Exception ex){
+            System.out.println("Erro : " + ex);
+        }finally {
+            conn.closeConnection(statement, resultSet);
+        }
+        return alunoList;
+    }
 
 
 }
