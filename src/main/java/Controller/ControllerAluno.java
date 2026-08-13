@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ControllerAluno {
 
-    public List<Aluno> getAluno(){
+    public List<Aluno> getAluno(){ // Listagem de alunos do banco de dados
         String sql = "SELECT * FROM clientstb;";
         ControllerConnection conn = new ControllerConnection();
         PreparedStatement statement = null;
@@ -39,7 +39,7 @@ public class ControllerAluno {
 
     }
 
-    public void alterAluno(int id, String name){
+    public void alterAluno(int id, String name){ // Alteração de Alunos
         String sql = "UPDATE clientstb " +
                 "SET name = ?" +
                 " WHERE id = ?";
@@ -61,7 +61,7 @@ public class ControllerAluno {
 
 
 
-    public void insertAluno(String name, LocalDate dateofbirth, String cpf, String plain, Boolean payment, int idtrainnig){
+    public void insertAluno(String name, LocalDate dateofbirth, String cpf, String plain, Boolean payment, int idtrainnig){ // Inserção de aluno no banco de dados
         String sql = "INSERT INTO clientstb(name,dateofbirth,cpf,plain,payment,idtrainnig) " +
                 "VALUES(?,?,?,?,?,?);";
         ControllerConnection conn = new ControllerConnection();
@@ -83,5 +83,10 @@ public class ControllerAluno {
             conn.closeConnection(statement, resultSet);
         }
     }
+
+
+    
+
+
 }
 
