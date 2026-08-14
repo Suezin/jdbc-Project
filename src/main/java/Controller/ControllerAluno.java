@@ -108,13 +108,13 @@ public class ControllerAluno {
 
         } catch (SQLException exSql) {
             System.out.println("Erro de sql : " + exSql);
-        }catch(Exception ex){
-            System.out.println("Erro : " + ex);
         }finally {
             conn.closeConnection(statement, resultSet);
         }
         return alunoList;
     }
+
+
 
 
 }
