@@ -5,6 +5,7 @@ import java.util.Date;
 public class Aluno {
 
     // Atributos
+    private int id;
     private String nome;
     private Date dataNasc;
     private Long cpf;
@@ -13,7 +14,7 @@ public class Aluno {
     private Integer idTreino;
 
     // Construtores
-    public Aluno(String nome, Date dataNasc, Long cpf, String tipoDePlano, Boolean pagamentoPlano, Integer idTreino) {
+    public Aluno(int id, String nome, Date dataNasc, Long cpf, String tipoDePlano, Boolean pagamentoPlano, Integer idTreino) {
         this.nome = nome;
         this.dataNasc = dataNasc;
         this.cpf = cpf;
@@ -26,7 +27,9 @@ public class Aluno {
     public Aluno() {
     }
 
-
+    public int getId(){
+        return id;
+    }
     // Getters
     public String getNome() {
         return nome;
@@ -51,7 +54,12 @@ public class Aluno {
     public Integer getIdTreino() {
         return idTreino;
     }
+
+
     // Setters
+    public void setId(int id){
+        this.id = id;
+    }
     public void setNome(String nome) {
         this.nome = nome;
     }

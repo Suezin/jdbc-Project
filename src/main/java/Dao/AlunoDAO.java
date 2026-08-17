@@ -1,14 +1,16 @@
-package Controller;
+package Dao;
 
+import Controller.ControllerConnection;
 import Model.Aluno;
+import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 
-import javax.xml.transform.Result;
+import javax.naming.ldap.Control;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControllerAluno {
+public class AlunoDAO {
 
     public List<Aluno> getAluno(){ // Listagem de alunos do banco de dados
         String sql = "SELECT * FROM clientstb;";
@@ -21,7 +23,7 @@ public class ControllerAluno {
             resultSet = statement.executeQuery(); // Executa a query
             while(resultSet.next()){ // Pega cada linha de resultado da query
                 Aluno aluno = new Aluno();
-
+                aluno.setId(resultSet.getInt("id"));
                 aluno.setNome(resultSet.getString("name"));
                 aluno.setDataNasc(resultSet.getDate("dateofbirth"));
                 aluno.setCpf(resultSet.getLong("cpf"));
@@ -45,7 +47,6 @@ public class ControllerAluno {
                 " WHERE id = ?";
         ControllerConnection conn = new ControllerConnection();
         PreparedStatement statement = null;
-        ResultSet resultSet = null;
         try{
             statement = conn.preparedStatement(sql);
             statement.setString(1, name);
@@ -57,9 +58,6 @@ public class ControllerAluno {
             conn.closeConnection(statement);
             }
         }
-
-
-
 
     public void insertAluno(String name, LocalDate dateofbirth, String cpf, String plain, Boolean payment, int idtrainnig){ // Inserção de aluno no banco de dados
         String sql = "INSERT INTO clientstb(name,dateofbirth,cpf,plain,payment,idtrainnig) " +
@@ -83,7 +81,6 @@ public class ControllerAluno {
             conn.closeConnection(statement, resultSet);
         }
     }
-
 
     public List<Aluno> getAlunoById(String name) {
         String sql = "SELECT * FROM clientstb WHERE name LIKE ?";
@@ -114,8 +111,46 @@ public class ControllerAluno {
         return alunoList;
     }
 
+    public void deleteById(int id) {
+        String sql= "DELETE FROM clientstb WHERE id = ?";
+        PreparedStatement statement = null;
+        ControllerConnection conn = new ControllerConnection();
+        try {
+            statement = conn.preparedStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        }catch(SQLException exSql){
+        System.out.println("Erro de sql :" + exSql);
+        }finally {
+            conn.closeConnection(statement);
+        }
+    }
 
+    public Boolean findId(int id){
+        String sql = "SELECT * FROM clientstb WHERE id = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        ControllerConnection conn = new ControllerConnection();
+        boolean result = false;
+        try {
+            statement = conn.preparedStatement(sql);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                int idAluno = resultSet.getInt("id");
+                if(idAluno == id){
+                    result = true;
+                }
 
+            }
+        }catch (SQLException exSql){
+            System.out.println("Erro de slq :" + exSql);
+        }finally{
+            conn.closeConnection(statement,resultSet);
+
+        }
+        return result;
+    }
 
 }
 
