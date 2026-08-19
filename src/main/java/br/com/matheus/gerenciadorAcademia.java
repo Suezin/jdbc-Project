@@ -1,7 +1,9 @@
 package br.com.matheus;
 
 import Dao.AlunoDAO;
+import Dao.TreinoDAO;
 import Model.Aluno;
+import Model.Treino;
 import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 
 import java.sql.SQLException;
@@ -14,6 +16,7 @@ public class gerenciadorAcademia {
 
     public static void main(String[] args) {
         AlunoDAO conn = new AlunoDAO();
+        TreinoDAO treinoConn = new TreinoDAO();
 //1
 //        int id = 1;
 //        String name = "Leonardo";
@@ -174,7 +177,7 @@ public class gerenciadorAcademia {
                             System.out.println("Data de Nascimento : " + aluno.getDataNasc());
                             System.out.println("Cpf : " + aluno.getCpf());
                             System.out.println("Tipo de Plano : " + aluno.getTipoDePlano());
-                            if (aluno.getPagamentoPlano() == false)
+                            if (!aluno.getPagamentoPlano())
                                 System.out.println("Pagamento do Plano: Não pago");
                             System.out.println("Pagamento do Plano : Pago");
                             System.out.println("Treino : " + aluno.getIdTreino());
@@ -192,6 +195,31 @@ public class gerenciadorAcademia {
             } else if (i == 0) {
                 System.out.println("Volte sempre!");
                 i= 4;
+            }else if (i == 3){
+                int j = 0;
+                while(j>=0 && j<=5){
+                    sc.nextLine();
+                    System.out.println("================================");
+                    System.out.println("        Opções de Treino      \n");
+                    System.out.println("1. Listar todos os tipos de treinos");
+                    System.out.println("Informe o número da opção que deseja :");
+                    j = sc.nextInt();
+
+
+                    if(j == 1){
+
+                        List<Treino> treinoList = treinoConn.getTrain();
+                        for(Treino treinos : treinoList){
+                            System.out.println("================================");
+                            System.out.println("Id : " + treinos.getId());
+                            System.out.println("Tipo de treinamento: " + treinos.getTipoDeTreino());
+                            System.out.println("Dias de treino: " + treinos.getDiasDeTreino());
+                            System.out.println("Quantidade de exercícios: " + treinos.getQuantidadeDeExercicios());
+                            System.out.println("Id do professor : " + treinos.getIdProfessor());
+                        }
+                    }
+                }
+
             }
         }
     }
