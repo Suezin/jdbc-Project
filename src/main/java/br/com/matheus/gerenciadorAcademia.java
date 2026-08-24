@@ -202,13 +202,15 @@ public class gerenciadorAcademia {
                     System.out.println("================================");
                     System.out.println("        Opções de Treino      \n");
                     System.out.println("1. Listar todos os tipos de treinos");
+                    System.out.println("3. Excluir novo Treino");
+                    System.out.println("2. Adicionar Treino");
                     System.out.println("Informe o número da opção que deseja :");
                     j = sc.nextInt();
 
 
                     if(j == 1){
 
-                        List<Treino> treinoList = treinoConn.getTrain();
+                        List<Treino> treinoList = treinoConn.getTrainning();
                         for(Treino treinos : treinoList){
                             System.out.println("================================");
                             System.out.println("Id : " + treinos.getId());
@@ -217,6 +219,32 @@ public class gerenciadorAcademia {
                             System.out.println("Quantidade de exercícios: " + treinos.getQuantidadeDeExercicios());
                             System.out.println("Id do professor : " + treinos.getIdProfessor());
                         }
+                    }else if(j == 2){
+                        sc.nextLine();
+                        System.out.println("Infome o tipo de treino (Ex: PPL/ABC, ABCD, Full body...):");
+                        String tipoDeTreino = sc.nextLine();
+                        System.out.println("Informe a quantidade de dias de treino : ");
+                        int diasDeTreino = sc.nextInt();
+                        System.out.println("Informe a quantidade de exercícios: ");
+                        int quantidadeDeExercicios = sc.nextInt();
+                        System.out.println("Informe o id do Professor: ");
+                        int idProfessor = sc.nextInt();
+
+                        treinoConn.addTrainning(tipoDeTreino,diasDeTreino,quantidadeDeExercicios,idProfessor);
+                    }else if(j == 3){
+                        sc.nextLine();
+                        List<Treino> treinoList = treinoConn.getTrainning();
+                        for(Treino treinos : treinoList){
+                            System.out.println("================================");
+                            System.out.println("Id : " + treinos.getId());
+                            System.out.println("Tipo de treinamento: " + treinos.getTipoDeTreino());
+                            System.out.println("Dias de treino: " + treinos.getDiasDeTreino());
+                            System.out.println("Quantidade de exercícios: " + treinos.getQuantidadeDeExercicios());
+                            System.out.println("Id do professor : " + treinos.getIdProfessor() + "\n");
+                        }
+                        System.out.println("Informe o número do exercício que deseja excluir: \n");
+                        int id = sc.nextInt();
+                        treinoConn.deleteTrainning(id);
                     }
                 }
 
