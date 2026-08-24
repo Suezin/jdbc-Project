@@ -4,12 +4,15 @@ import Controller.ControllerConnection;
 import Model.Professor;
 
 import javax.naming.ldap.Control;
+import javax.swing.text.html.HTMLDocument;
 import javax.xml.transform.Result;
+import java.awt.image.ShortLookupTable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProfessorDAO {
 
@@ -58,6 +61,26 @@ public class ProfessorDAO {
 
         }finally{
             conn.closeConnection(statement);
+        }
+    }
+
+    public void alterTrainner(int id, String name, int cpf, int dataNasc){
+        String sql = "UPDATE trainertb" +
+                "SET name = ?," +
+                "cpf = ?," +
+                "dateofbirth = ?" +
+                "WHERE id = ?";
+        PreparedStatement statement = null;
+        ControllerConnection conn = new ControllerConnection();
+
+        try {
+            statement = conn.preparedStatement(sql);
+            statement.setString(1, name);
+            statement.setInt(2,cpf);
+            statement.setInt(3,dataNasc);
+            statement.setInt(4, id);
+            statement.executeUpdate();
+            System.out.println("professor alterado com sucesso");
         }
     }
 
