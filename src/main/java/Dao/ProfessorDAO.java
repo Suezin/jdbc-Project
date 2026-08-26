@@ -29,8 +29,8 @@ public class ProfessorDAO {
             while(resultSet.next()){
                 Professor professor = new Professor();
                 professor.setNome(resultSet.getString("name"));
-                professor.setCpf(resultSet.getInt("cpf"));
-                professor.setDataNasc(resultSet.getInt("dateofbirth"));
+                professor.setCpf(resultSet.getLong("cpf"));
+                professor.setDataNasc(resultSet.getDate("dateofbirth"));
                 professorList.add(professor);
             }
 
@@ -81,6 +81,34 @@ public class ProfessorDAO {
             statement.setInt(4, id);
             statement.executeUpdate();
             System.out.println("professor alterado com sucesso");
+
+        }catch(SQLException exSql ){
+            System.out.println("Erro de sql : " + exSql);
+        }finally{
+            conn.closeConnection(statement);
+        }
+    }
+
+    public void deleteTrainner(int id){
+        String sql = "DELETE FROM trainertb WHERE id = ?";
+        ControllerConnection conn = new ControllerConnection();
+        PreparedStatement statement = null;
+        List<Professor> professorList = getTrainner();
+        for(Professor prof : professorList){
+            System.out.println("Id : " + prof.getId());
+            System.out.println("Nome : " + prof.getNome());
+            System.out.println("Cpf : " + prof.getCpf());
+            System.out.println("Data de nascimento : " + prof.getDataNasc());
+            System.out.println("\n");
+        }
+        try {
+            statement = conn.preparedStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        }catch(SQLException exSql){
+            System.out.println("Erro de sql : " + exSql);
+        }finally{
+            conn.closeConnection(statement);
         }
     }
 

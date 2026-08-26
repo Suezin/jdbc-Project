@@ -1,12 +1,14 @@
 package Model;
 
+import java.util.Date;
+
 public class Professor {
     private String id;
     private String nome;
-    private Integer dataNasc;
-    private Integer cpf;
+    private Date dataNasc;
+    private Long cpf;
 
-    public Professor(String nome, String id, Integer cpf, Integer dataNasc) {
+    public Professor(String nome, String id, Long cpf, Date dataNasc) {
         this.nome = nome;
         this.id = id;
         this.cpf = cpf;
@@ -24,11 +26,11 @@ public class Professor {
         this.nome = nome;
     }
 
-    public void setDataNasc(Integer dataNasc) {
+    public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
 
@@ -40,11 +42,11 @@ public class Professor {
         return nome;
     }
 
-    public Integer getDataNasc() {
+    public Date getDataNasc() {
         return dataNasc;
     }
 
-    public Integer getCpf() {
+    public Long getCpf() {
         return cpf;
     }
 }
