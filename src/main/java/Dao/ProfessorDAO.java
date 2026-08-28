@@ -7,9 +7,11 @@ import javax.naming.ldap.Control;
 import javax.swing.text.html.HTMLDocument;
 import javax.xml.transform.Result;
 import java.awt.image.ShortLookupTable;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -43,7 +45,7 @@ public class ProfessorDAO {
     }
 
 
-    public void addTrainner(String name, int cpf, int dataNasc){
+    public void addTrainner(String name, int cpf, LocalDate dataNasc){
         String sql = "INSERT INTO trainertb(name, cpf, dateofbirth) " +
                 "VALUES(?,?,?);";
         PreparedStatement statement = null;
@@ -53,7 +55,7 @@ public class ProfessorDAO {
             statement = conn.preparedStatement(sql);
             statement.setString(1, name);
             statement.setInt(2,cpf);
-            statement.setInt(3, dataNasc);
+            statement.setDate(3, Date.valueOf(dataNasc));
             statement.executeUpdate();
             System.out.println("Professor adicionado com sucesso !");
         }catch(SQLException exSql){

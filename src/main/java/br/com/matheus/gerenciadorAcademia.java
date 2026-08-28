@@ -11,6 +11,7 @@ import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -256,6 +257,32 @@ public class gerenciadorAcademia {
                             System.out.println("Data de Nascimento : " + prof.getDataNasc());
                             System.out.println("\n");
                         }
+                    }else if (j==2){
+                        sc.nextLine();
+                        System.out.println("================================");
+                        System.out.println("    Adicionar novo Professor  \n");
+                        System.out.println("Informe o nome do novo professor");
+                        String nomeProfessor = sc.nextLine();
+                        System.out.println("Informe o CPF do professor: " );
+                        int cpf = sc.nextInt();
+                        if (cpf != 11) {
+                            System.out.println("Numero de cpf Inválido!");
+                            System.out.println("Informe o cpf : ");
+                            cpf = sc.nextInt();
+                        }
+                        System.out.println("Infome a data de nascimento :");
+                        System.out.println("Dia :");
+                        int diaNasc = sc.nextInt();
+                        System.out.println("Mês :");
+                        int mesNasc = sc.nextInt();
+                        System.out.println("Ano :");
+                        int anoNasc = sc.nextInt();
+                        LocalDate dataNasc = LocalDate.of(diaNasc,mesNasc,anoNasc);
+
+                        professorConn.addTrainner(nomeProfessor,cpf,dataNasc);
+
+                    }else if(j==3){
+                        
                     }
                 }
             }
