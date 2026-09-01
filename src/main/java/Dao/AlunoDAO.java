@@ -82,7 +82,7 @@ public class AlunoDAO {
         }
     }
 
-    public List<Aluno> getAlunoById(String name) {
+    public List<Aluno> getAlunoByName(String name) {
         String sql = "SELECT * FROM clientstb WHERE name LIKE ?";
         ControllerConnection conn = new ControllerConnection();
         PreparedStatement statement = null;

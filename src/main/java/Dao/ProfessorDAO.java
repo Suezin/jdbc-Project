@@ -66,7 +66,7 @@ public class ProfessorDAO {
         }
     }
 
-    public void alterTrainner(int id, String name, int cpf, int dataNasc){
+    public void alterTrainner(int id, String name, int cpf, LocalDate dataNasc){
         String sql = "UPDATE trainertb" +
                 "SET name = ?," +
                 "cpf = ?," +
@@ -79,7 +79,7 @@ public class ProfessorDAO {
             statement = conn.preparedStatement(sql);
             statement.setString(1, name);
             statement.setInt(2,cpf);
-            statement.setInt(3,dataNasc);
+            statement.setDate(3, Date.valueOf(dataNasc));
             statement.setInt(4, id);
             statement.executeUpdate();
             System.out.println("professor alterado com sucesso");
@@ -112,6 +112,24 @@ public class ProfessorDAO {
         }finally{
             conn.closeConnection(statement);
         }
+    }
+
+    public Boolean searchById(int id){
+        String sql = "SELECT * FROM trainertb WHERE id = ?";
+        PreparedStatement statement = null;
+        ControllerConnection conn = new ControllerConnection();
+
+        try{
+            statement = conn.preparedStatement(sql);
+            statement.setInt(1,id);
+            statement.executeQuery(sql);
+            return true;
+        }catch(SQLException exSql){
+            System.out.println("Erro de slq : " + exSql);
+        }finally {
+            conn.closeConnection(statement);
+        }
+        return false;
     }
 
 }
