@@ -2,6 +2,8 @@ package Dao;
 
 import Controller.ControllerConnection;
 import Model.Planos;
+import com.mysql.cj.jdbc.exceptions.SQLError;
+import com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,6 +60,42 @@ public class PlanoDAO {
         }finally{
             conn.closeConnection(statement);
         }
+    }
+
+    public boolean searchById(int id) {
+        String slq = "SELECT * FROM planostb WHERE id = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        ControllerConnection conn = new ControllerConnection();
+        try{
+            return resultSet.next();
+        }catch(SQLException exSql){
+            System.out.println("Erro de Sql :" + exSql);
+
+            return false;
+
+        }finally{
+            conn.closeConnection(statement,resultSet);
+        }
+
+    }
+    public void deleteById(int id ){
+        if(!searchById(id)){
+            System.out.println("O número de id passado não existe! Insira um id existente");
+        }
+        String sql = "DELETE FROM planostb WHERE id = ?";
+
+        PreparedStatement statement = null;
+        ControllerConnection conn = new ControllerConnection();
+        try {
+            statement = conn.preparedStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            System.out.println("Plano deletado com sucesso!");
+        }catch(SQLException exSql){
+            System.out.println("Erro de sql :" + exSql);
+        }
+
     }
 
 }
