@@ -28,7 +28,7 @@ public class AlunoDAO {
                 aluno.setNome(resultSet.getString("name"));
                 aluno.setDataNasc(resultSet.getDate("dateofbirth"));
                 aluno.setCpf(resultSet.getString("cpf"));
-                aluno.setTipoDePlano(resultSet.getString("idplain"));
+                aluno.setIdPlano(resultSet.getInt("idplain"));
                 aluno.setProximoPagamento(resultSet.getDate(String.valueOf(Date.valueOf("nextpayment"))));
                 alunoList.add(aluno);
             }
@@ -96,7 +96,7 @@ public class AlunoDAO {
                 aluno.setNome(resultSet.getString("name"));
                 aluno.setDataNasc(resultSet.getDate("dateofbirth"));
                 aluno.setCpf(resultSet.getString("cpf"));
-                aluno.setTipoDePlano(resultSet.getString("plain"));
+                aluno.setIdPlano(resultSet.getInt("plain"));
                 aluno.setProximoPagamento(resultSet.getDate(String.valueOf("nextpayment")));
                 alunoList.add(aluno);
             }

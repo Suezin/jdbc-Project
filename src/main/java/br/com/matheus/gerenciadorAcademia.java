@@ -44,11 +44,10 @@ public class gerenciadorAcademia {
                             System.out.println("Nome: " + aluno.getNome());
                             System.out.println("Data de Nascimento : " + aluno.getDataNasc());
                             System.out.println("Cpf : " + aluno.getCpf());
-                            System.out.println("Tipo de Plano : " + aluno.getTipoDePlano());
-
-                            System.out.println(aluno.getProximoPagamento());
+                            System.out.println("Tipo de Plano : " + aluno.getIdPlano());
+                            System.out.println("Próximo pagamento :" + aluno.getProximoPagamento());
                             System.out.println("Pagamento do Plano : Pago");
-                            System.out.println("Treino : " + aluno.getTipoDePlano());
+
                         }
                         j = 0;
 
@@ -103,11 +102,8 @@ public class gerenciadorAcademia {
                             System.out.println("Nome: " + aluno.getNome());
                             System.out.println("Data de Nascimento : " + aluno.getDataNasc());
                             System.out.println("Cpf : " + aluno.getCpf());
-                            System.out.println("Tipo de Plano : " + aluno.getTipoDePlano());
-                            if (aluno.getPagamentoPlano() == false)
-                                System.out.println("Pagamento do Plano: Não pago");
-                            System.out.println("Pagamento do Plano : Pago");
-                            System.out.println("Treino : " + aluno.getIdTreino());
+                            System.out.println("Tipo de Plano : " + aluno.getIdPlano());
+                            System.out.println("Próximo Pagamento : " + aluno.getProximoPagamento());
                         }
                         System.out.println("Informe o id do Aluno que deseja alterar : ");
                         int id = sc.nextInt();
@@ -133,11 +129,8 @@ public class gerenciadorAcademia {
                             System.out.println("Nome :" + aluno.getNome());
                             System.out.println("Data de Nacimento :" + aluno.getDataNasc());
                             System.out.println("Cpf :" + aluno.getCpf());
-                            System.out.println("Tipo de plano:" + aluno.getTipoDePlano());
-                            if (aluno.getPagamentoPlano() == false)
-                                System.out.println("Pagamento do Plano: Não pago");
-                            System.out.println("Pagamento do Plano : Pago");
-                            System.out.println("Treino : " + aluno.getIdTreino());
+                            System.out.println("Id do plano:" + aluno.getIdPlano());
+                            System.out.println("Próximo pagamento :" + aluno.getProximoPagamento());
 
                         }
                     } else if (j == 5) {
@@ -150,11 +143,9 @@ public class gerenciadorAcademia {
                             System.out.println("Nome: " + aluno.getNome());
                             System.out.println("Data de Nascimento : " + aluno.getDataNasc());
                             System.out.println("Cpf : " + aluno.getCpf());
-                            System.out.println("Tipo de Plano : " + aluno.getTipoDePlano());
-                            if (!aluno.getPagamentoPlano())
-                                System.out.println("Pagamento do Plano: Não pago");
-                            System.out.println("Pagamento do Plano : Pago");
-                            System.out.println("Treino : " + aluno.getIdTreino());
+                            System.out.println("Id do plano : " + aluno.getIdPlano());
+                            System.out.println("Próximo pagamento : " + aluno.getProximoPagamento());
+
                         }
                         System.out.println("Informe o id do Aluno que deseja deletar: ");
                         int id = sc.nextInt();
@@ -186,42 +177,10 @@ public class gerenciadorAcademia {
 
 
                     if (j == 1) {
-
-                        List<Treino> treinoList = treinoConn.getTrainning();
-                        for (Treino treinos : treinoList) {
-                            System.out.println("================================");
-                            System.out.println("Id : " + treinos.getId());
-                            System.out.println("Tipo de treinamento: " + treinos.getTipoDeTreino());
-                            System.out.println("Dias de treino: " + treinos.getDiasDeTreino());
-                            System.out.println("Quantidade de exercícios: " + treinos.getQuantidadeDeExercicios());
-                            System.out.println("Id do professor : " + treinos.getIdProfessor() + "\n");
-                        }
                     } else if (j == 2) {
-                        sc.nextLine();
-                        System.out.println("Informe o tipo de treino (Ex: PPL/ABC, ABCD, Full body...):");
-                        String tipoDeTreino = sc.nextLine();
-                        System.out.println("Informe a quantidade de dias de treino : ");
-                        int diasDeTreino = sc.nextInt();
-                        System.out.println("Informe a quantidade de exercícios: ");
-                        int quantidadeDeExercicios = sc.nextInt();
-                        System.out.println("Informe o id do Professor: ");
-                        int idProfessor = sc.nextInt();
 
-                        treinoConn.addTrainning(tipoDeTreino, diasDeTreino, quantidadeDeExercicios, idProfessor);
                     } else if (j == 3) {
-                        sc.nextLine();
-                        List<Treino> treinoList = treinoConn.getTrainning();
-                        for (Treino treinos : treinoList) {
-                            System.out.println("================================");
-                            System.out.println("Id : " + treinos.getId());
-                            System.out.println("Tipo de treinamento: " + treinos.getTipoDeTreino());
-                            System.out.println("Dias de treino: " + treinos.getDiasDeTreino());
-                            System.out.println("Quantidade de exercícios: " + treinos.getQuantidadeDeExercicios());
-                            System.out.println("Id do professor : " + treinos.getIdProfessor() + "\n");
-                        }
-                        System.out.println("Informe o número do exercício que deseja excluir: \n");
-                        int id = sc.nextInt();
-                        treinoConn.deleteTrainning(id);
+
                     }else if(j == 4){
                         i = 0;
                     }
@@ -242,94 +201,12 @@ public class gerenciadorAcademia {
                     j = sc.nextInt();
 
                     if(j == 1){
-                        List<Professor> professorList = professorConn.getTrainner();
-                        for(Professor prof : professorList){
-                            System.out.println("================================");
-                            System.out.println("Nome : " + prof.getNome());
-                            System.out.println("Cpf : " + prof.getCpf());
-                            System.out.println("Data de Nascimento : " + prof.getDataNasc());
-                            System.out.println("\n");
-                        }
-                    }else if (j==2){
-                        sc.nextLine();
-                        System.out.println("================================");
-                        System.out.println("    Adicionar novo Professor  \n");
-                        System.out.println("Informe o nome do novo professor");
-                        String nomeProfessor = sc.nextLine();
-                        System.out.println("Informe o CPF do professor: " );
-                        String cpf = sc.nextLine();
-                        if(cpf.length() != 11){
-                            System.out.println("Insira um cpf válido (xxx.xxx.xxx-xx)");
-                            cpf= sc.nextLine();
-                        }
-                        System.out.println("Informe a data de nascimento :");
-                        System.out.println("Dia :");
-                        int diaNasc = sc.nextInt();
-                        System.out.println("Mês :");
-                        int mesNasc = sc.nextInt();
-                        System.out.println("Ano :");
-                        int anoNasc = sc.nextInt();
-                        LocalDate dataNasc = LocalDate.of(diaNasc,mesNasc,anoNasc);
 
-                        professorConn.addTrainner(nomeProfessor,Integer.parseInt(cpf),dataNasc);
+                    }else if (j==2){
 
                     }else if(j==3){
-                        System.out.println("================================");
-                        System.out.println("        Alterar Professor     \n");
-                        List<Professor> professorList = professorConn.getTrainner();
-                        for(Professor prof : professorList){
-                            System.out.println("================================");
-                            System.out.println("Id : " + prof.getId());
-                            System.out.println("Nome : " + prof.getNome());
-                            System.out.println("Cpf : " + prof.getCpf());
-                            System.out.println("Data de Nascimento : " + prof.getDataNasc());
-                            System.out.println("\n");
-                        }
-                        System.out.println("Insira o número do Professor que deseja alterar");
-                        int idProfessor = sc.nextInt();
-                            if(professorConn.searchById(idProfessor)){
-                                System.out.println("Insira novo nome do professor :");
-                                String nome = sc.nextLine();
-                                System.out.println("Insira o novo CPF do professor: ");
-                                String cpf = sc.nextLine();
-                                if(cpf.length() != 11){
-                                    System.out.println("Insira um cpf válido (xxx.xxx.xxx-xx)");
-                                    cpf= sc.nextLine();
-                                }
 
-                                System.out.println("Insira a nova data de nascimento");
-                                System.out.println("Dia :");
-                                int diaNasc = sc.nextInt();
-                                System.out.println("Mês :");
-                                int mesNasc = sc.nextInt();
-                                System.out.println("Ano :");
-                                int anoNasc = sc.nextInt();
-                                LocalDate dataNasc = LocalDate.of(diaNasc,mesNasc,anoNasc);
-                                professorConn.alterTrainner(idProfessor,nome, Integer.parseInt(cpf), dataNasc);
-
-                            }else{
-                                System.out.println("Insira um id válido !");
-                            }
                     }else if(j == 4){
-                        System.out.println("================================");
-                        System.out.println("        Deletar Professor     \n");
-                        List<Professor> professorList = professorConn.getTrainner();
-                        for(Professor prof : professorList){
-                            System.out.println("================================");
-                            System.out.println("Id :" + prof.getId());
-                            System.out.println("Nome : " + prof.getNome());
-                            System.out.println("Cpf : " + prof.getCpf());
-                            System.out.println("Data de Nascimento : " + prof.getDataNasc());
-                            System.out.println("\n");
-                        }
-                        System.out.println("Informe o número do Professor que deseja deletar :" );
-                        int id = sc.nextInt();
-                        if(professorConn.searchById(id)){
-                            professorConn.deleteTrainner(id);
-                            System.out.println("Professor deletado com sucesso! ");
-                        }else{
-                            System.out.println("Informe um id válido !");
-                        }
 
                     }else if(j == 5){
                         i = 0;

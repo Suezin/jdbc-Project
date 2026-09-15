@@ -10,15 +10,15 @@ public class Aluno {
     private String nome;
     private Date dataNasc;
     private String cpf;
-    private String tipoDePlano;
+    private int idPlano;
     private Date proximoPagamento;
 
     // Construtores
-    public Aluno(int id, String nome, Date dataNasc, String cpf, String tipoDePlano, Date proximoPagamento) {
+    public Aluno(int id, String nome, Date dataNasc, String cpf, int tipoDePlano, Date proximoPagamento) {
         this.nome = nome;
         this.dataNasc = dataNasc;
         this.cpf = cpf;
-        this.tipoDePlano = tipoDePlano;
+        this.idPlano = idPlano;
         this.proximoPagamento = proximoPagamento;
     }
 
@@ -42,8 +42,8 @@ public class Aluno {
         return cpf;
     }
 
-    public String getTipoDePlano() {
-        return tipoDePlano;
+    public int getIdPlano() {
+        return idPlano;
     }
 
     public Date getProximoPagamento() {
@@ -66,8 +66,8 @@ public class Aluno {
         this.cpf =cpf;
     }
 
-    public void setTipoDePlano(String tipoDePlano) {
-        this.tipoDePlano = tipoDePlano;
+    public void setIdPlano(int tipoDePlano) {
+        this.idPlano = idPlano;
     }
 
     public void setProximoPagamento(Date proximoPagamento) {
