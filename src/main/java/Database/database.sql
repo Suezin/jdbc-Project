@@ -1,29 +1,26 @@
-CREATE TABLE clientstb (
-                           id int auto_increment PRIMARY KEY,
+CREATE TABLE alunostb (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
                            name VARCHAR(50) NOT NULL,
                            dateofbirth date NOT NULL,
-                           cpf VARCHAR(11) NOT NULL,
-                           plain VARCHAR(20) NOT NULL,
-                           payment BOOLEAN NOT NULL,
-                           idtrainnig int,
-                           FOREIGN KEY(idtrainnig) REFERENCES trainigtb(id)
+                           cpf CHAR(11) NOT NULL,
+                           idplain INT NOT NULL,
+                           nextpayment date NOT NULL,
+                            FOREIGN KEY(idplain) REFERENCES planostb(id)
 
 );
 
-CREATE TABLE trainigtb(
-                          id int AUTO_INCREMENT primary KEY,
-                          trainigtype VARCHAR(20) NOT NULL,
-                          exercisesquantity tinyint NOT NULL,
-                          daysoftrainnig tinyint NOT NULL,
-                          idtrainer int,
-                          FOREIGN KEY(idtrainer) REFERENCES trainertb(id)
+CREATE TABLE planostb(
+
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    price decimal(8,2) NOT NULL,
+    durationdays SMALLINT NOT NULL
 );
 
-
-CREATE TABLE trainertb (
-                           id int AUTO_INCREMENT PRIMARY KEY,
-                           name VARCHAR(50) NOT NULL,
-                           dateofbirth date NOT NULL,
-                           cpf VARCHAR(11) NOT NULL
-
-);
+CREATE TABLE pagamentostb (
+    id INT AUTO_INCREMENT PRIMARY KEY ,
+    idaluno INT NOT NULL,
+    amount DECIMAL(8,2) NOT NULL,
+    paymentdate DATE NOT NULL,
+    FOREIGN KEY(idaluno) REFERENCES alunostb(id)
+)

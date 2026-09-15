@@ -1,17 +1,9 @@
 package br.com.matheus;
 
 import Dao.AlunoDAO;
-import Dao.ProfessorDAO;
-import Dao.TreinoDAO;
 import Model.Aluno;
-import Model.Professor;
-import Model.Treino;
-import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,8 +11,7 @@ public class gerenciadorAcademia {
 
     public static void main(String[] args) {
         AlunoDAO alunoConn = new AlunoDAO();
-        TreinoDAO treinoConn = new TreinoDAO();
-        ProfessorDAO professorConn = new ProfessorDAO();
+
         Scanner sc = new Scanner(System.in);
         int i = 0;
         while (i >= 0 && i <= 3) {
@@ -54,10 +45,10 @@ public class gerenciadorAcademia {
                             System.out.println("Data de Nascimento : " + aluno.getDataNasc());
                             System.out.println("Cpf : " + aluno.getCpf());
                             System.out.println("Tipo de Plano : " + aluno.getTipoDePlano());
-                            if (aluno.getPagamentoPlano() == false)
-                                System.out.println("Pagamento do Plano: Não pago");
+
+                            System.out.println(aluno.getProximoPagamento());
                             System.out.println("Pagamento do Plano : Pago");
-                            System.out.println("Treino : " + aluno.getIdTreino());
+                            System.out.println("Treino : " + aluno.getTipoDePlano());
                         }
                         j = 0;
 
@@ -68,9 +59,8 @@ public class gerenciadorAcademia {
                         int mesNasc = 0;
                         int anoNasc = 0;
                         String cpf = "";
-                        String plano = "";
+                        int idplano = 0;
                         LocalDate dataNasc;
-                        int idTreino = 0;
                         sc.nextLine();
 
                         System.out.println("================================");
@@ -96,15 +86,12 @@ public class gerenciadorAcademia {
                             cpf = sc.nextLine();
                         }
 
-                        System.out.println("Informe o tipo de plano que deseja (Ex: Mensal, trimestral, etc) : ");
-                        plano = sc.nextLine();
+                        System.out.println("Informe o id do plano que deseja : ");
+                        idplano = sc.nextInt();
                         sc.nextLine();
-                        Boolean pagamento = true;
+                       LocalDate pagamento = LocalDate.now();
 
-                        System.out.println("Informe o tipo de Treino de preferência: ");
-                        idTreino = sc.nextInt();
-
-                        alunoConn.insertAluno(nome, dataNasc, cpf, plano, pagamento, idTreino);
+                        alunoConn.insertAluno(nome, dataNasc, cpf, idplano, pagamento);
                         System.out.println("Aluno Inserido com sucesso !");
                     } else if (j == 3) {
                         System.out.println("================================");

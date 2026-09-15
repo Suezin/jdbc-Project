@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Reader;
 import java.util.Date;
 
 public class Aluno {
@@ -8,19 +9,17 @@ public class Aluno {
     private int id;
     private String nome;
     private Date dataNasc;
-    private Long cpf;
+    private String cpf;
     private String tipoDePlano;
-    private Boolean pagamentoPlano;
-    private Integer idTreino;
+    private Date proximoPagamento;
 
     // Construtores
-    public Aluno(int id, String nome, Date dataNasc, Long cpf, String tipoDePlano, Boolean pagamentoPlano, Integer idTreino) {
+    public Aluno(int id, String nome, Date dataNasc, String cpf, String tipoDePlano, Date proximoPagamento) {
         this.nome = nome;
         this.dataNasc = dataNasc;
         this.cpf = cpf;
         this.tipoDePlano = tipoDePlano;
-        this.pagamentoPlano = pagamentoPlano;
-        this.idTreino = idTreino;
+        this.proximoPagamento = proximoPagamento;
     }
 
 
@@ -39,7 +38,7 @@ public class Aluno {
         return dataNasc;
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
@@ -47,14 +46,9 @@ public class Aluno {
         return tipoDePlano;
     }
 
-    public Boolean getPagamentoPlano() {
-        return pagamentoPlano;
+    public Date getProximoPagamento() {
+        return proximoPagamento;
     }
-
-    public Integer getIdTreino() {
-        return idTreino;
-    }
-
 
     // Setters
     public void setId(int id){
@@ -68,19 +62,15 @@ public class Aluno {
         this.dataNasc = dataNasc;
     }
 
-    public void setCpf(Long cpf) {
-        this.cpf = cpf;
+    public void setCpf(String cpf) {
+        this.cpf =cpf;
     }
 
     public void setTipoDePlano(String tipoDePlano) {
         this.tipoDePlano = tipoDePlano;
     }
 
-    public void setPagamentoPlano(Boolean pagamentoPlano) {
-        this.pagamentoPlano = pagamentoPlano;
-    }
-
-    public void setIdTreino(Integer idTreino) {
-        this.idTreino = idTreino;
+    public void setProximoPagamento(Date proximoPagamento) {
+        this.proximoPagamento = proximoPagamento;
     }
 }

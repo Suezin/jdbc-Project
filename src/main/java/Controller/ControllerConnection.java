@@ -3,9 +3,9 @@ package Controller;
 import java.sql.*;
 
 public class ControllerConnection {
-    private static final String URL = "jdbc:mysql://127.0.0.1:3306/academia";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/GerenciadorAcademia";
+    private static final String USER = "matheus";
+    private static final String PASSWORD = "0000";
     private Connection conn;
         public ControllerConnection() {
             try {

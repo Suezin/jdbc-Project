@@ -5,6 +5,7 @@ import Model.Aluno;
 import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 
 import javax.naming.ldap.Control;
+import java.io.Reader;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 public class AlunoDAO {
 
     public List<Aluno> getAluno(){ // Listagem de alunos do banco de dados
-        String sql = "SELECT * FROM clientstb;";
+        String sql = "SELECT * FROM alunostb;";
         ControllerConnection conn = new ControllerConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -26,10 +27,9 @@ public class AlunoDAO {
                 aluno.setId(resultSet.getInt("id"));
                 aluno.setNome(resultSet.getString("name"));
                 aluno.setDataNasc(resultSet.getDate("dateofbirth"));
-                aluno.setCpf(resultSet.getLong("cpf"));
-                aluno.setTipoDePlano(resultSet.getString("plain"));
-                aluno.setPagamentoPlano(resultSet.getBoolean("payment"));
-                aluno.setIdTreino(resultSet.getInt("idtrainnig"));
+                aluno.setCpf(resultSet.getString("cpf"));
+                aluno.setTipoDePlano(resultSet.getString("idplain"));
+                aluno.setProximoPagamento(resultSet.getDate(String.valueOf(Date.valueOf("nextpayment"))));
                 alunoList.add(aluno);
             }
         }catch(SQLException exSql) {
@@ -59,26 +59,25 @@ public class AlunoDAO {
             }
         }
 
-    public void insertAluno(String name, LocalDate dateofbirth, String cpf, String plain, Boolean payment, int idtrainnig){ // Inserção de aluno no banco de dados
-        String sql = "INSERT INTO clientstb(name,dateofbirth,cpf,plain,payment,idtrainnig) " +
-                "VALUES(?,?,?,?,?,?);";
+    public void insertAluno(String name, LocalDate dateofbirth, String cpf, int idplain, LocalDate nextpayment){ // Inserção de aluno no banco de dados
+        String sql = "INSERT INTO clientstb(name,dateofbirth,cpf,idplain,nextpayment) " +
+                "VALUES(?,?,?,?,?);";
         ControllerConnection conn = new ControllerConnection();
         PreparedStatement statement = null;
-        ResultSet resultSet = null;
+
         try {
             statement = conn.preparedStatement(sql);
             statement.setString(1, name);
             statement.setDate(2, Date.valueOf(dateofbirth));
             statement.setString(3, cpf);
-            statement.setString(4, plain);
-            statement.setBoolean(5, payment);
-            statement.setInt(6, idtrainnig);
+            statement.setInt(4, idplain);
+            statement.setDate(5, Date.valueOf(nextpayment));
             statement.executeUpdate();
 
         }catch(SQLException exSql){
             System.out.println("Erro de sql : " + exSql);
         }finally{
-            conn.closeConnection(statement, resultSet);
+            conn.closeConnection(statement);
         }
     }
 
@@ -96,10 +95,9 @@ public class AlunoDAO {
                 Aluno aluno = new Aluno();
                 aluno.setNome(resultSet.getString("name"));
                 aluno.setDataNasc(resultSet.getDate("dateofbirth"));
-                aluno.setCpf(resultSet.getLong("cpf"));
+                aluno.setCpf(resultSet.getString("cpf"));
                 aluno.setTipoDePlano(resultSet.getString("plain"));
-                aluno.setPagamentoPlano(resultSet.getBoolean("payment"));
-                aluno.setIdTreino(resultSet.getInt("idtrainnig"));
+                aluno.setProximoPagamento(resultSet.getDate(String.valueOf("nextpayment")));
                 alunoList.add(aluno);
             }
 
