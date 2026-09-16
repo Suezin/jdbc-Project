@@ -1,15 +1,16 @@
 package Model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Pagamentos {
 
     int id ;
     int idAluno = 0 ;
     double amount = 0;
-    LocalDate dataDePagamento;
+    Date dataDePagamento;
 
-    public Pagamentos(int id, int idAluno, double amount, LocalDate dataDePagamento) {
+    public Pagamentos(int id, int idAluno, double amount, Date dataDePagamento) {
         this.id = id;
         this.idAluno = idAluno;
         this.amount = amount;
@@ -31,7 +32,7 @@ public class Pagamentos {
         this.amount = amount;
     }
 
-    public void setDataDePagamento(LocalDate dataDePagamento) {
+    public void setDataDePagamento(Date dataDePagamento) {
         this.dataDePagamento = dataDePagamento;
     }
 
@@ -47,7 +48,7 @@ public class Pagamentos {
         return amount;
     }
 
-    public LocalDate getDataDePagamento() {
+    public Date getDataDePagamento() {
         return dataDePagamento;
     }
 }
