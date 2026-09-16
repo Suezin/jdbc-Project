@@ -52,7 +52,7 @@ public class PagamentoDAO {
         }catch(SQLException exSql){
             System.out.println("Erro de Sql :" + exSql);
         }finally{
-            conn.closeConnection(statement);
+            conn.closeConnection(statement  );
         }
     }
 
