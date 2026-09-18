@@ -1,11 +1,8 @@
-package Dao;
+package dao;
 
-import Controller.ControllerConnection;
-import Model.Aluno;
-import com.mysql.cj.protocol.a.SqlDateValueEncoder;
+import controller.ControllerConnection;
+import model.Aluno;
 
-import javax.naming.ldap.Control;
-import java.io.Reader;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,13 +12,10 @@ public class AlunoDAO {
 
     public List<Aluno> getAluno(){ // Listagem de alunos do banco de dados
         String sql = "SELECT * FROM alunostb;";
-        ControllerConnection conn = new ControllerConnection();
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
         List<Aluno> alunoList = new ArrayList<>();
-        try {
-            statement = conn.preparedStatement(sql); // Testa a query
-            resultSet = statement.executeQuery(); // Executa a query
+        try (Connection conn = ControllerConnection.getConnection()){
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){ // Pega cada linha de resultado da query
                 Aluno aluno = new Aluno();
                 aluno.setId(resultSet.getInt("id"));
@@ -29,44 +23,37 @@ public class AlunoDAO {
                 aluno.setDataNasc(resultSet.getDate("dateofbirth"));
                 aluno.setCpf(resultSet.getString("cpf"));
                 aluno.setIdPlano(resultSet.getInt("idplain"));
-                aluno.setProximoPagamento(resultSet.getDate(String.valueOf(Date.valueOf("nextpayment"))));
+                aluno.setProximoPagamento(resultSet.getDate("nextpayment"));
                 alunoList.add(aluno);
             }
         }catch(SQLException exSql) {
             System.out.println("Erro de Sql : " + exSql);
-        }finally {
-            conn.closeConnection(statement, resultSet);
         }
         return alunoList;
 
     }
 
     public void alterAluno(int id, String name){ // Alteração de Alunos
-        String sql = "UPDATE clientstb " +
+        String sql = "UPDATE alunostb " +
                 "SET name = ?" +
                 " WHERE id = ?";
-        ControllerConnection conn = new ControllerConnection();
-        PreparedStatement statement = null;
-        try{
-            statement = conn.preparedStatement(sql);
+
+        try(Connection conn = ControllerConnection.getConnection()){
+            PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, name);
             statement.setInt(2, id);
             statement.executeUpdate();
         }catch(SQLException exSql) {
             System.out.println("Erro de sql : " + exSql);
-        }finally {
-            conn.closeConnection(statement);
-            }
         }
+    }
 
     public void insertAluno(String name, LocalDate dateofbirth, String cpf, int idplain, LocalDate nextpayment){ // Inserção de aluno no banco de dados
-        String sql = "INSERT INTO clientstb(name,dateofbirth,cpf,idplain,nextpayment) " +
+        String sql = "INSERT INTO alunostb(name,dateofbirth,cpf,idplain,nextpayment) " +
                 "VALUES(?,?,?,?,?);";
-        ControllerConnection conn = new ControllerConnection();
-        PreparedStatement statement = null;
 
-        try {
-            statement = conn.preparedStatement(sql);
+        try (Connection conn = ControllerConnection.getConnection()){
+            PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, name);
             statement.setDate(2, Date.valueOf(dateofbirth));
             statement.setString(3, cpf);
@@ -76,64 +63,51 @@ public class AlunoDAO {
 
         }catch(SQLException exSql){
             System.out.println("Erro de sql : " + exSql);
-        }finally{
-            conn.closeConnection(statement);
         }
     }
 
     public List<Aluno> getAlunoByName(String name) {
-        String sql = "SELECT * FROM clientstb WHERE name LIKE ?";
-        ControllerConnection conn = new ControllerConnection();
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
+        String sql = "SELECT * FROM alunostb WHERE name LIKE ?";
         List<Aluno> alunoList = new ArrayList<>();
-        try {
-            statement = conn.preparedStatement(sql);
+        try (Connection conn = ControllerConnection.getConnection()){
+            PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, "%" + name + "%");
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Aluno aluno = new Aluno();
                 aluno.setNome(resultSet.getString("name"));
                 aluno.setDataNasc(resultSet.getDate("dateofbirth"));
                 aluno.setCpf(resultSet.getString("cpf"));
-                aluno.setIdPlano(resultSet.getInt("plain"));
+                aluno.setIdPlano(resultSet.getInt("idplain"));
                 aluno.setProximoPagamento(resultSet.getDate(String.valueOf("nextpayment")));
                 alunoList.add(aluno);
             }
 
         } catch (SQLException exSql) {
             System.out.println("Erro de sql : " + exSql);
-        }finally {
-            conn.closeConnection(statement, resultSet);
         }
         return alunoList;
     }
 
     public void deleteById(int id) {
-        String sql= "DELETE FROM clientstb WHERE id = ?";
-        PreparedStatement statement = null;
-        ControllerConnection conn = new ControllerConnection();
-        try {
-            statement = conn.preparedStatement(sql);
+        String sql= "DELETE FROM alunostb WHERE id = ?";
+
+        try (Connection conn = ControllerConnection.getConnection()){
+            PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
             statement.executeUpdate();
         }catch(SQLException exSql){
         System.out.println("Erro de sql :" + exSql);
-        }finally {
-            conn.closeConnection(statement);
         }
     }
 
     public Boolean findId(int id){
-        String sql = "SELECT * FROM clientstb WHERE id = ?";
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        ControllerConnection conn = new ControllerConnection();
+        String sql = "SELECT * FROM alunostb WHERE id = ?";
         boolean result = false;
-        try {
-            statement = conn.preparedStatement(sql);
+        try (Connection conn = ControllerConnection.getConnection()){
+            PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
                 int idAluno = resultSet.getInt("id");
                 if(idAluno == id){
@@ -143,9 +117,6 @@ public class AlunoDAO {
             }
         }catch (SQLException exSql){
             System.out.println("Erro de slq :" + exSql);
-        }finally{
-            conn.closeConnection(statement,resultSet);
-
         }
         return result;
     }

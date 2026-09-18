@@ -1,6 +1,5 @@
-package Model;
+package model;
 
-import java.io.Reader;
 import java.util.Date;
 
 public class Aluno {
@@ -14,7 +13,8 @@ public class Aluno {
     private Date proximoPagamento;
 
     // Construtores
-    public Aluno(int id, String nome, Date dataNasc, String cpf, int tipoDePlano, Date proximoPagamento) {
+    public Aluno(int id, String nome, Date dataNasc, String cpf, int idPlano, Date proximoPagamento) {
+        this.id = id;
         this.nome = nome;
         this.dataNasc = dataNasc;
         this.cpf = cpf;
@@ -66,7 +66,7 @@ public class Aluno {
         this.cpf =cpf;
     }
 
-    public void setIdPlano(int tipoDePlano) {
+    public void setIdPlano(int idPlano) {
         this.idPlano = idPlano;
     }
 

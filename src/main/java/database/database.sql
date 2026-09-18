@@ -1,3 +1,11 @@
+CREATE TABLE planostb(
+
+                         id INT AUTO_INCREMENT PRIMARY KEY,
+                         name VARCHAR(30) NOT NULL,
+                         price decimal(8,2) NOT NULL,
+                         durationdays SMALLINT NOT NULL
+);
+
 CREATE TABLE alunostb (
                             id INT AUTO_INCREMENT PRIMARY KEY,
                            name VARCHAR(50) NOT NULL,
@@ -7,14 +15,6 @@ CREATE TABLE alunostb (
                            nextpayment date NOT NULL,
                             FOREIGN KEY(idplain) REFERENCES planostb(id)
 
-);
-
-CREATE TABLE planostb(
-
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30) NOT NULL,
-    price decimal(8,2) NOT NULL,
-    durationdays SMALLINT NOT NULL
 );
 
 CREATE TABLE pagamentostb (
