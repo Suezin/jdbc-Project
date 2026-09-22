@@ -1,5 +1,6 @@
 package dao;
 
+import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 import controller.ControllerConnection;
 import model.Aluno;
 
@@ -48,21 +49,41 @@ public class AlunoDAO {
         }
     }
 
-    public void insertAluno(String name, LocalDate dateofbirth, String cpf, int idplain, LocalDate nextpayment){ // Inserção de aluno no banco de dados
+    public void insertAluno(String name, LocalDate dateofbirth, String cpf, int idplain
+    ) throws SQLException { // Inserção de aluno no banco de dados
+        PlanoDAO plano = new PlanoDAO();
+        int quantidadeDeDias = plano.getDaysById(idplain);
         String sql = "INSERT INTO alunostb(name,dateofbirth,cpf,idplain,nextpayment) " +
                 "VALUES(?,?,?,?,?);";
+        LocalDate nextpayment = LocalDate.now().plusDays(quantidadeDeDias);
 
         try (Connection conn = ControllerConnection.getConnection()){
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, name);
-            statement.setDate(2, Date.valueOf(dateofbirth));
-            statement.setString(3, cpf);
-            statement.setInt(4, idplain);
-            statement.setDate(5, Date.valueOf(nextpayment));
-            statement.executeUpdate();
+            conn.setAutoCommit(false);
+            try(PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-        }catch(SQLException exSql){
-            System.out.println("Erro de sql : " + exSql);
+                statement.setString(1, name);
+                statement.setDate(2, Date.valueOf(dateofbirth));
+                statement.setString(3, cpf);
+                statement.setInt(4, idplain);
+                statement.setDate(5, Date.valueOf(nextpayment));
+                statement.executeUpdate();
+
+                int idGerado;
+                try (ResultSet rs = statement.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        PagamentoDAO pagamentoDAO = new PagamentoDAO();
+                        pagamentoDAO.insertPagamento(conn, rs.getInt(1), idplain);
+
+                    } else {
+                        throw new SQLException("Id do aluno inserido não obtido");
+                    }
+                }
+                conn.commit();
+
+            }catch (SQLException exSql){
+                conn.rollback();
+                throw exSql;
+            }
         }
     }
 

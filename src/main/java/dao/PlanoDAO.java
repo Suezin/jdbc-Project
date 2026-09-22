@@ -1,5 +1,6 @@
 package dao;
 
+import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 import controller.ControllerConnection;
 import model.Planos;
 
@@ -55,6 +56,7 @@ public class PlanoDAO {
 
         try (Connection conn = ControllerConnection.getConnection()){
             PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1,id);
             ResultSet resultSet = statement.executeQuery();
             return resultSet.next();
         }catch(SQLException exSql){
@@ -66,6 +68,7 @@ public class PlanoDAO {
     public void deleteById(int id ){
         if(!searchById(id)){
             System.out.println("O número de id passado não existe! Insira um id existente");
+            return;
         }
         String sql = "DELETE FROM planostb WHERE id = ?";
         try (Connection conn = ControllerConnection.getConnection()){
@@ -78,5 +81,39 @@ public class PlanoDAO {
         }
 
     }
+
+    public int getDaysById(int idplano) throws SQLException  {
+        String sql = "SELECT durationdays FROM planostb WHERE id = ?";
+
+        try(Connection conn = ControllerConnection.getConnection()){
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, idplano);
+
+            try(ResultSet rs = statement.executeQuery()){
+                if(rs.next()){
+                    return rs.getInt("durationdays");
+                }
+                throw new SQLException("Plano com id " + idplano + " não encontrado. Por favor inserir um id válido");
+            }
+        }
+
+    }
+    public Double getAmountById(int idplano) throws SQLException  {
+        String sql = "SELECT price FROM planostb WHERE id = ?";
+
+        try(Connection conn = ControllerConnection.getConnection()){
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, idplano);
+
+            try(ResultSet rs = statement.executeQuery()){
+                if(rs.next()){
+                    return rs.getDouble("price");
+                }
+                throw new SQLException("Plano com id " + idplano + " não encontrado. Por favor inserir um id válido");
+            }
+        }
+
+    }
+
 
 }

@@ -7,8 +7,8 @@ import java.sql.*;
 
 public class ControllerConnection {
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/GerenciadorAcademia";
-    private static final String USER =  System.getenv().getOrDefault("DB_USER","matheus");
-    private static final String PASSWORD = System.getenv().getOrDefault("DB_PASSWORD", "0000");
+    private static final String USER =  System.getenv().getOrDefault("DB_USER","root");
+    private static final String PASSWORD = System.getenv().getOrDefault("DB_PASSWORD", "");
     private static final HikariDataSource dataSource;
 
     static{

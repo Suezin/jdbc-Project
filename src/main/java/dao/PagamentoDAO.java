@@ -1,7 +1,9 @@
 package dao;
 
+import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 import controller.ControllerConnection;
 import model.Pagamentos;
+import model.Planos;
 
 import javax.print.DocFlavor;
 import java.sql.*;
@@ -22,7 +24,7 @@ public class PagamentoDAO {
                  Pagamentos pagamentos = new Pagamentos();
                  pagamentos.setIdAluno(resultSet.getInt("idaluno"));
                  pagamentos.setAmount(resultSet.getDouble("amount"));
-                 pagamentos.setDataDePagamento(resultSet.getDate("paymentdate"));
+                 pagamentos.setDataDePagamento(resultSet.getDate("paymentdate").toLocalDate());
                  pagamentosList.add(pagamentos);
 
              }
@@ -32,18 +34,21 @@ public class PagamentoDAO {
         return pagamentosList;
     }
 
-    public void insertPagamento(int idAluno, double amount, Date paymentDate){
+    public void insertPagamento(Connection conn ,int idAluno, int idplano) throws SQLException {
         String sql = "INSERT INTO pagamentostb(idaluno,amount,paymentdate) VALUES(?,?,?)";
+        LocalDate paymentDate = LocalDate.now();
+        PlanoDAO plano = new PlanoDAO();
+        double amount = plano.getAmountById(idplano);
 
-        try (Connection conn = ControllerConnection.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(sql);
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1,idAluno);
             statement.setDouble(2,amount);
-            statement.setDate(3, paymentDate);
+            statement.setDate(3, Date.valueOf(paymentDate));
             statement.executeUpdate();
-        }catch(SQLException exSql){
-            System.out.println("Erro de Sql :" + exSql);
         }
+
+
     }
 
 }
