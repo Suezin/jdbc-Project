@@ -1,3 +1,4 @@
+
 CREATE TABLE planostb(
 
                          id INT AUTO_INCREMENT PRIMARY KEY,

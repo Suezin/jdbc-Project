@@ -1,11 +1,8 @@
 package dao;
 
-import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 import controller.ControllerConnection;
 import model.Pagamentos;
-import model.Planos;
 
-import javax.print.DocFlavor;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;

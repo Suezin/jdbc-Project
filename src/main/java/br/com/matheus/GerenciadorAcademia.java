@@ -6,9 +6,7 @@ import dao.PlanoDAO;
 import model.Aluno;
 import model.Pagamentos;
 import model.Planos;
-import model.Pagamentos;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.InputMismatchException;

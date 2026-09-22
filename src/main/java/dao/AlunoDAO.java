@@ -1,6 +1,5 @@
 package dao;
 
-import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 import controller.ControllerConnection;
 import model.Aluno;
 
