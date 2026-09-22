@@ -46,7 +46,7 @@ gerenciador-academia/
 - MySQL 8.0 ou superior
 - Maven (opcional, se o projeto usar)
 
-## 🚀 Como instalar e executar
+## Como instalar e executar
 
 1. Clone o repositório:
 ```bash
@@ -102,4 +102,4 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir uma *issue* ou e
 
 ## Autor
 
-Feito por **Seu Nome** — [GitHub](https://github.com/Suezin)
+Feito por **Suezin** — [GitHub](https://github.com/Suezin)
