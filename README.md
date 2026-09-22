@@ -80,7 +80,7 @@ mvn clean package
 
 7. Rode a aplicação:
 ```bash
-java -jar target/gerenciador-academia-1.0-SNAPSHOT.jar
+java -jar target/Gerenciador-Academia-1.0-SNAPSHOT.jar
 ```
 
 ## Exemplo de uso
